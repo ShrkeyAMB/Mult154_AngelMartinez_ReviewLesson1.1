@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     //Player Variables
     public float speed = 10f;
 
+    //GameObjects
+    public GameObject spawnPoint = null;
+
     private void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
@@ -42,5 +45,17 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -40);
         }
+    }
+
+    //RespawnFuction
+    private void Respawn()
+    {
+        rbPlayer.MovePosition(spawnPoint.transform.position);
+    }
+
+    //RespawnCollider
+    private void OnTriggerExit(Collider other)
+    {
+        Respawn();
     }
 }

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 49197878}
   - component: {fileID: 49197877}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: UpperBankRockRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,6 +220,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &69227524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 69227525}
+  m_Layer: 0
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &69227525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69227524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.5, z: 35}
+  m_LocalScale: {x: 5, y: 3, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &184344998
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,8 +264,8 @@ GameObject:
   - component: {fileID: 184345000}
   - component: {fileID: 184344999}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: river
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +278,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184344998}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -330,7 +361,7 @@ GameObject:
   - component: {fileID: 399398114}
   - component: {fileID: 399398113}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: LowerBankRockLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -818,6 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  spawnPoint: {fileID: 69227524}
 --- !u!1 &1433600897
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +863,7 @@ GameObject:
   - component: {fileID: 1433600899}
   - component: {fileID: 1433600898}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: UpperBankRockLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +1011,7 @@ GameObject:
   - component: {fileID: 1748353432}
   - component: {fileID: 1748353431}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: LowerBankRockRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
