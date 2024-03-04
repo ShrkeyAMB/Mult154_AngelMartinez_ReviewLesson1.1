@@ -15,9 +15,36 @@ public class PlayerMovement : MonoBehaviour
     //GameObjects
     public GameObject spawnPoint = null;
 
+    //Dictionary
+    private Dictionary<Item.VegetableType, int> Iteminventory = new Dictionary<Item.VegetableType, int>();
+
+
+    //AddToInventoryFunction
+    private void AddToInventory(Item item)
+    {
+        Iteminventory[item.typeOfVegetable]++;
+    }
+    //PrintInventory
+    private void PrintInventory()
+    {
+        string output = "";
+
+        foreach(KeyValuePair<Item.VegetableType, int> kvp in Iteminventory)
+        {
+            output += string.Format("{0}: {1} ", kvp.Key, kvp.Value);
+        }
+        Debug.Log(output);
+    }
+
     private void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
+
+        //Populate Dictionary
+        foreach (Item.VegetableType item in System.Enum.GetValues(typeof(Item.VegetableType)))
+        {
+            Iteminventory.Add(item, 0);
+        }
 
     }
     private void Update()
@@ -53,9 +80,22 @@ public class PlayerMovement : MonoBehaviour
         rbPlayer.MovePosition(spawnPoint.transform.position);
     }
 
+    //ColliderOfVeggies
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            Item item = other.gameObject.GetComponent<Item>();
+            AddToInventory(item);
+            PrintInventory();
+        }
+    }
+
     //RespawnCollider
     private void OnTriggerExit(Collider other)
     {
         Respawn();
     }
+
+
 }
