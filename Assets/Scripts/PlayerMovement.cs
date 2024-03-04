@@ -89,6 +89,11 @@ public class PlayerMovement : MonoBehaviour
             AddToInventory(item);
             PrintInventory();
         }
+        if (other.CompareTag("Booster"))
+        {
+            speed += 25;
+            StartCoroutine(BoostDown());
+        }
     }
 
     //RespawnCollider
@@ -97,5 +102,13 @@ public class PlayerMovement : MonoBehaviour
         Respawn();
     }
 
+  
 
+    private IEnumerator BoostDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        speed -= 25;
+    }
+
+   
 }
