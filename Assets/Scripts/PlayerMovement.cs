@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     //type for rigidBody
     private Rigidbody rbPlayer;
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 10f;
 
     //GameObjects
-    public GameObject spawnPoint = null;
+    public GameObject[] spawnPoints = null;
 
     //Dictionary
     private Dictionary<Item.VegetableType, int> Iteminventory = new Dictionary<Item.VegetableType, int>();
@@ -38,7 +39,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+
         rbPlayer = GetComponent<Rigidbody>();
+        spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
 
         //Populate Dictionary
         foreach (Item.VegetableType item in System.Enum.GetValues(typeof(Item.VegetableType)))
@@ -49,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         //player Movement
         float horMove = Input.GetAxis("Horizontal");
         float verMove = Input.GetAxis("Vertical");
@@ -60,6 +72,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         rbPlayer.AddForce(direction * speed,ForceMode.Force);
 
         //ConstraintsOfPlayArea
@@ -77,12 +94,22 @@ public class PlayerMovement : MonoBehaviour
     //RespawnFuction
     private void Respawn()
     {
-        rbPlayer.MovePosition(spawnPoint.transform.position);
+        int index = 0;
+        while (Physics.CheckBox(spawnPoints[index].transform.position, new Vector3(1.5f, 1.5f, 1.5f)))
+        {
+            index++;
+        }
+        rbPlayer.MovePosition(spawnPoints[index].transform.position);
     }
 
     //ColliderOfVeggies
     private void OnTriggerEnter(Collider other)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        } 
+
         if (other.CompareTag("Item"))
         {
             Item item = other.gameObject.GetComponent<Item>();
@@ -99,6 +126,11 @@ public class PlayerMovement : MonoBehaviour
     //RespawnCollider
     private void OnTriggerExit(Collider other)
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        } 
+
         Respawn();
     }
 
@@ -106,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator BoostDown()
     {
+
         yield return new WaitForSeconds(5.0f);
         speed -= 25;
     }

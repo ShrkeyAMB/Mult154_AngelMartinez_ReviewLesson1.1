@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : NetworkBehaviour
 {
     //ArrayOfObjetcs
     public GameObject[] lillyPadObjs = null;
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnStartServer()
     {
         InvokeRepeating("SpawnLillyPad", 2f, 5f);
     }
@@ -24,7 +25,8 @@ public class SpawnManager : MonoBehaviour
     {
         foreach (GameObject lillyPad in lillyPadObjs)
         {
-            Instantiate(lillyPad);
+            GameObject tempLillyPad = Instantiate(lillyPad);
+            NetworkServer.Spawn(tempLillyPad);
         }
     }
 }
